@@ -91,7 +91,7 @@ class App extends Component {
     tittle = tittle.trim();
     tittle.replace(/ /g, '+');
     this.setState({isLoading: true});
-    fetch('http://www.omdbapi.com/?apikey=1ce9ae26&t==' + tittle).then((response) => response.json()).then((responseJson) => {
+    fetch('https://www.omdbapi.com/?apikey=1ce9ae26&t==' + tittle).then((response) => response.json()).then((responseJson) => {
 
       //this.allMoviesArr = responseJson.Year;
       this.addInternalMovie(responseJson).then(res => this.setState({isLoading: false})).catch(err => console.log(err));;
