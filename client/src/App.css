@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-logo {
@@ -20,6 +20,10 @@
 
 .App-intro {
   font-size: large;
+}
+
+.Movies {
+  font-size: small;
 }
 
 @keyframes App-logo-spin {
