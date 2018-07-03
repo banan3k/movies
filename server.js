@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var url = process.env.MONGOLAB_URI;
 
 // parse application/x-www-form-urlencoded
 var jsonParser = bodyParser.json()
