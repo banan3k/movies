@@ -1,1 +1,1 @@
-config.force_ssl = false
+config.force_ssl = true
