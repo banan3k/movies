@@ -24,8 +24,6 @@ class App extends Component {
     console.log(item);
     this.setState({showMovie: true, showComments: false});
 
-    // temp = JSON.parse(item);
-    //let temp = item.map(this.mapJsonMovie);
     let allView = [];
     for (let property in item) {
       if (property != "_id" && property != "Poster" && property != "Response") {
@@ -36,12 +34,8 @@ class App extends Component {
     this.setState({responseLocal: allView});
     this.setState({title:item.Title});
     this.callApiCommentsMovie(item.Title).then(res => this.recievedComments(res.express, false)).catch(err => console.log(err));
-    //commentsTemp = JSON.stringify(commentsTemp)
-
   }
   recievedComments(data, mainPage) {
-    //console.log("c"+data);
-    //let commentsTemp = this.callApiCommentsMovie(data.Title);
     let commentsTemp = JSON.parse(data);
     commentsTemp = commentsTemp.map(this.mapJsonComment);
     console.log("bbbb" + commentsTemp);
@@ -61,7 +55,6 @@ class App extends Component {
 
   }
   mapJson(data, i) {
-    //  this.childKey++;
     let allView = [];
     let a = <img width="100px" src={data.Poster} />;
     let b = <li key={i + 1}>{data.Title}
@@ -76,13 +69,13 @@ class App extends Component {
     return <label onClick={boundItemClick}>{allView}</label>;
   }
   recievedMovies(data) {
+    console.log(data);
     let temp = JSON.parse(data);
     temp = temp.map(this.mapJson, this);
     this.setState({responseLocal: temp});
   }
   componentDidMount() {
     this.callApiMovies().then(res => this.recievedMovies(res.express)).catch(err => console.log(err));
-
     this.callExternalApi("Fight Club");
     this.callApiCommentsMovie("Fight Club");
 
@@ -92,10 +85,7 @@ class App extends Component {
     tittle.replace(/ /g, '+');
     this.setState({isLoading: true});
     fetch('https://www.omdbapi.com/?apikey=1ce9ae26&t==' + tittle).then((response) => response.json()).then((responseJson) => {
-
-      //this.allMoviesArr = responseJson.Year;
       this.addInternalMovie(responseJson).then(res => this.setState({isLoading: false})).catch(err => console.log(err));;
-      //this.setState({isLoading: false});
     }).catch((error) => {
       console.error(error);
     });

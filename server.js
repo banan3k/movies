@@ -8,10 +8,8 @@ const port = process.env.PORT || 5000;
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGOLAB_URI;
 
-// parse application/x-www-form-urlencoded
-var jsonParser = bodyParser.json()
 
-// create application/x-www-form-urlencoded parser
+
 var urlencodedParser = bodyParser.urlencoded({extended: false})
 
 app.get('/api/allMovies', (req, res) => {
@@ -22,7 +20,6 @@ app.get('/api/allMovies', (req, res) => {
     }
     var dbo = db.db("movies");
     dbo.collection("customers").find({}).toArray(function(err, result) {
-      //  res.send({express: result});
       if (err)
         throw err;
       res.send({express: JSON.stringify(result)});
@@ -66,7 +63,7 @@ app.get('/api/movieComments', (req, res) => {
   });
 });
 
-app.post('/api/addComment', jsonParser, (req, res) => {
+app.post('/api/addComment', (req, res) => {
   let data = req.url;
   data = data.replace("/api/addComment?", '');
   data = data.replace(/%22/g, '"');
@@ -96,7 +93,7 @@ app.post('/api/addComment', jsonParser, (req, res) => {
   });
 });
 
-app.post('/api/addMovie', jsonParser, (req, res) => {
+app.post('/api/addMovie', (req, res) => {
 let data = req.url;
 data = data.replace("/api/addMovie?", '');
 data = data.replace(/%22/g, '"');
@@ -150,10 +147,9 @@ res.send("true");
 
 
 if (process.env.NODE_ENV === 'production') {
-  // Serve any static files
+
   app.use(express.static(path.join(__dirname, 'client/build')));
 
-  // Handle React routing, return all requests to React app
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
